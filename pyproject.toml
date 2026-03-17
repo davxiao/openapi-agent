@@ -1,0 +1,25 @@
+[project]
+name = "openapi-agent"
+version = "0.1.0"
+description = "Add your description here"
+readme = "README.md"
+requires-python = ">=3.13"
+dependencies = [
+    "dotenv>=0.9.9",
+    "fastapi>=0.115.0",
+    "geopy>=2.4.1",
+    "google-adk",
+    "pytz>=2025.2",
+    "requests>=2.32.5",
+    "timezonefinder>=8.2.1",
+    "unicorn>=2.1.4",
+]
+
+[[tool.uv.index]]
+url = "https://pypi.org/simple"
+default = true
+
+# use latest adk since there was an oauth token exchange bug up until 1.27.1 
+# see detail @adk-python/issues/4850
+[tool.uv.sources]
+google-adk = { git = "https://github.com/google/adk-python" }

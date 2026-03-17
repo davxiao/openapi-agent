@@ -1,0 +1,129 @@
+openapi: 3.1.0
+info:
+  title: Remote Time API
+  version: 1.0.0
+servers:
+  - url: http://127.0.0.1:8081
+paths:
+  /:
+    get:
+      summary: Root
+      operationId: root__get
+      responses:
+        "200":
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: "hello world"
+  /current_time:
+    get:
+      summary: Get Details
+      operationId: get_details_current_time_get
+      security:
+        - BearerAuth: []
+      parameters:
+        - name: city
+          in: query
+          required: false
+          schema:
+            anyOf:
+              - type: string
+              - type: "null"
+            title: City
+      responses:
+        "200":
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: boolean
+                    example: false
+                  data:
+                    type: object
+                    properties:
+                      status:
+                        type: string
+                        example: "success"
+                      data:
+                        type: object
+                        properties:
+                          input_city:
+                            type: string
+                            example: "nyc"
+                          resolved_address:
+                            type: string
+                            example: "New York, United States"
+                          timezone:
+                            type: string
+                            example: "America/New_York"
+                          time_24h:
+                            type: string
+                            example: "16:47"
+                          time_12h:
+                            type: string
+                            example: "04:47 PM"
+                          date:
+                            type: string
+                            example: "2026-03-16"
+                          utc_offset:
+                            type: string
+                            example: "-0400"
+                  message:
+                    type: string
+                    example: "current time retrieved"
+        "422":
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/HTTPValidationError"
+components:
+  schemas:
+    HTTPValidationError:
+      properties:
+        detail:
+          items:
+            $ref: "#/components/schemas/ValidationError"
+          type: array
+          title: Detail
+      type: object
+      title: HTTPValidationError
+    ValidationError:
+      properties:
+        loc:
+          items:
+            anyOf:
+              - type: string
+              - type: integer
+          type: array
+          title: Location
+        msg:
+          type: string
+          title: Message
+        type:
+          type: string
+          title: Error Type
+        input:
+          title: Input
+        ctx:
+          type: object
+          title: Context
+      type: object
+      required:
+        - loc
+        - msg
+        - type
+      title: ValidationError
+  securitySchemes:
+    BearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: CustomAuthToken

@@ -1,0 +1,8 @@
+dotenv>=0.9.9
+fastapi[standard]>=0.135.1
+geopy>=2.4.1
+google-adk>=1.26.0
+pytz>=2025.2
+timezonefinder>=8.2.1
+unicorn>=2.1.4
+pydantic>=2.7.0
