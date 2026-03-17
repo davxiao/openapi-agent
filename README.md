@@ -1,4 +1,9 @@
 
+# Overall Architecture
+
+Architecture Diagram
+![](./openapi-diagram.jpg)
+
 
 # Setting up and running
 
